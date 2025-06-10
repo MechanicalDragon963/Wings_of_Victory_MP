@@ -10,45 +10,17 @@ local function help_page_text(caption, description)
 end
 
 function wesnoth.wml_actions.show_drakepedia(cfg)
-	local show_help_mechanics = cfg.show_mechanics ~= false
-	local show_help_training = cfg.show_training ~= false
-	local show_help_factions = cfg.show_factions ~= false
-	local show_help_artifacts = cfg.show_artifacts ~= false
-	local show_help_settings = cfg.show_settings ~= false
 	-- maps the treeview rows to pagenumber in the help page.
 	local index_map = {}
 
 	local current_side = wesnoth.interface.get_viewing_side()
 	local preshow = function(dialog)
-		local str_cat_mechnics = _ "Game Mechanics"
-		local str_des_mechnics =
-			make_caption( _ "Game Mechanics") .. "\n\n" ..
-			_ "<b>Gold</b>\n" ..
-			_ "Carryover rate is 15% and split evenly among players. Negative amounts will not carry over. Early finish bonus is superior to village control, but it is not directly related to the carryover amount.\n\n" ..
-			_ "<b>Autorecall</b>\n" ..
-			_ "Units with the <b>heroic</b> trait are recalled at the start of each scenario with no cost (up to castle size).\n\n" ..
-			_ "<b>Recall Cost</b>\n" ..
-			_ "Units costing less than 17 gold are cheaper to recall.\n\n" ..
-			_ "<b>Training</b>\n" ..
-			_ "Every time you recruit a new unit, your training levels will be applied. If a unit gains training benefits, you can see them with the trait \"trained\". Each unit’s chance of gaining training benefits is independent of another’s.\n\n" ..
-			_ "<b>Upkeep</b>\n" ..
-			_ "Units with the <b>heroic</b> trait or holding any magic <b>item</b> have free upkeep.\n\n" ..
-			_ "<b>Bonus Points</b>\n" ..
-			_ "In every scenario the game generates as many bonus points on the map as there are players in the game, the bonus points can be picked up by player units and either contain artifacts, loyal units, or training.\n\n" ..
-			_ "<b>Army discipline</b>\n" ..
-			_ "At scenarios 1 to 3, for each training level players already own, trainers found have 2% to 4% chance to become advanced trainers (provide 2 levels). Becomes irrelevant from scenario 4 onwards because all trainers will always be advanced.\n\n" ..
-			""
-		local str_cat_training, str_des_training = help_page_text( _ "Training", _ "Training improves newly recruited units, it has no effect on already recruited units. The following list shows all available training, the training you currently have is marked in green.")
-		local str_cat_items, str_des_items = help_page_text( _ "Items", _ "Items can be given to units to make them stronger. You can get items in three ways: 1) By choosing an item as your starting bonus; 2) By finding it on a map in a bonus point; 3) By dropping from enemies in later scenarios. Note, however, that not all units can pick up all items.")
-		local str_cat_era, str_des_era = help_page_text( _ "Factions" , _ "The World Conquest II era consists of factions that are built from pairs of mainline factions. One faction will have a healer available (Drakes, Rebels and Loyalists) and one will not (Orcs, Dwarves and Undead). The recruit list is also organized in pairs so that sometimes you will have to recruit a different unit before you can recruit the units that you want. The available heroes, deserters, and random leaders also depend on your factions; the items you can get do not depend on the faction you choose.")
-		local str_cat_settings = _ "Settings"
-
 		local root_node = dialog:find("treeview_topics")
 		local details = dialog:find("details")
 
 		function gui.widget.add_help_page(parent_node, args)
-			local node_type = args.node_type or "category"
-			local page_type = args.page_type or "simple"
+			local node_type = "category"
+			local page_type = "simple"
 
 			local node = parent_node:add_item_of_type(node_type)
 			local details_page = details:add_item_of_type(page_type)
