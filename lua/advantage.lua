@@ -65,4 +65,14 @@ res.winning_team = function()
 		return ""
 	end
 end
+
+function res.show_turns_over_advantage()
+	local _ = wesnoth.textdomain "wesnoth-wov"
+	
+	local scores = res.turns_over_advantage()
+	---@type tstring
+	local side_comparison = "Our team: " .. tostring(scores["hero"]) .. "\n\n" .. "Enemy team: " .. tostring(scores["rival"]) .. "\n\n<small>Scores are determined by income, gold and units worth</small>"
+	
+	gui.show_popup("Scores", side_comparison)
+end
 return res
